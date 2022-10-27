@@ -19,10 +19,12 @@ import java.util.List;
 public class ClientBookImpl implements ClientBookIService {
 
     private final ClientBookIRepository clientBookIRepository;
+    private final ClientIRepository clientIRepository;
 
     @Autowired
-    public ClientBookImpl(ClientBookIRepository clientBookIRepository){
+    public ClientBookImpl(ClientBookIRepository clientBookIRepository,ClientIRepository clientIRepository){
         this.clientBookIRepository = clientBookIRepository;
+        this.clientIRepository = clientIRepository;
     }
 
     @Override
@@ -55,6 +57,13 @@ public class ClientBookImpl implements ClientBookIService {
     @Override
     public List<ClientBook> findClientBookByClient(Client client) {
        return this.clientBookIRepository.findClientBookByClients(client);
+
+    }
+
+    @Override
+    public List<ClientBook> findClientBooksByClientId(String clientId) {
+        Client client = this.clientIRepository.findById(clientId).orElse(null);
+        return this.clientBookIRepository.findClientBooksByClients(client);
 
     }
 

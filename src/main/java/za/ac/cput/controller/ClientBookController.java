@@ -90,4 +90,12 @@ public class ClientBookController {
         return ResponseEntity.ok(findClientBook);
         }
 
+    @GetMapping("clientBooksByClientId/{clientId}")
+    public ResponseEntity<List<ClientBook>> findClientBooksByClientId(@PathVariable String clientId){
+        log.info("Find Request: {}",clientId);
+
+        List<ClientBook> findClientBook = this.clientBookIService.findClientBooksByClientId(clientId);
+        return ResponseEntity.ok(findClientBook);
+    }
+
 }
